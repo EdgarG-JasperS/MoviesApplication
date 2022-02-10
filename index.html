@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Movie Application</title>
-    <link rel="stylesheet" href="css/main.css">
+	<meta charset="UTF-8">
+	<title>Movie Application</title>
+	<link rel="stylesheet" href="css/main.css">
 
 </head>
 <body>
-<div id="loading">Loading...</div>
-<form method="POST" action="https://rough-harvest-liver.glitch.me/movies">
-    <label>
-        <input type="text" id="title" name="title">
-    </label>
-    <label><input type="radio" name="rating" value="5">5</label>
-    <label><input type="radio" name="rating" value="4">4</label>
-    <label><input type="radio" name="rating" value="3">3</label>
-    <label><input type="radio" name="rating" value="2">2</label>
-    <label><input type="radio" name="rating" value="1">1</label>
-    <button type="submit" id="addMovieButton">Add Movie</button>
-</form>
-<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-<script src="js/main.js"></script>
+	<form onsubmit="return false" id="addMovieForm">
+		<label><input type="text" id="title" name="title" placeholder="Title"></label>
+		<label><input type="radio" name="rating" value="5">5</label>
+		<label><input type="radio" name="rating" value="4">4</label>
+		<label><input type="radio" name="rating" value="3">3</label>
+		<label><input type="radio" name="rating" value="2">2</label>
+		<label><input type="radio" name="rating" value="1">1</label>
+		<button id="addMovieButton">Add Movie</button>
+		<label><input type="text" id="movieId" name="movieId" placeholder="ID"></label>
+		<button id="editMovieButton">Edit Movie</button>
+	</form>
+	<div id="loading">Loading...</div>
+	<div class="container"></div>
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+	<script src="js/main.js"></script>
 </body>
 </html>
