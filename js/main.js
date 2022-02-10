@@ -47,6 +47,9 @@ $("#addMovieButton").click(function () {
 });
 
 $("#editMovieButton").click(() => {
+	$('#movieList').html('')
+	$('#movieList').text('')
+	$('#movieList').empty()
 	moviesArray.forEach((element) => {
 		let movieButton = document.createElement("button");
 		movieButton.setAttribute("class", "btn btn-link dropdown-item");
@@ -77,13 +80,16 @@ $("#saveButton").click(() => {
 			$(".container").html("");
 			drawMovies();
 			$("#saveButton").attr("disabled", false);
+			moviesArray.length = 0;
 		})
 		.catch(error => console.log(error));
 });
 
-let moviesArray = [];
-drawMovies();
-
 let movieBody = {
 	title: $("#title").val(), rating: $("#")
 }
+
+
+let moviesArray = [];
+
+drawMovies("ratings");
