@@ -45,11 +45,25 @@ $("#addMovieButton").click(function () {
 		})
 		.catch(error => console.log(error));
 });
+
 $("#editMovieButton").click(() => {
-	$("#editMovieButton").attr("disabled", true);
-	fetch(url + "/" + $("#movieId").val(), {
+	moviesArray.forEach((element) => {
+		let movieButton = document.createElement("button");
+		movieButton.setAttribute("class", "btn btn-link dropdown-item");
+		movieButton.innerText = element.title;
+		$('#movieList').append(movieButton);
+		movieButton.addEventListener('click', () =>{
+			$('#editTitle').val(element.title);
+			$('#editID').val(element.id);
+		});
+	});
+});
+
+$("#saveButton").click(() => {
+	$("#saveButton").attr("disabled", true);
+	fetch(url + "/" + $('#editID').val(), {
 		method: "PUT", headers: {'Content-Type': 'application/json'}, body: JSON.stringify({
-			title: $("#title").val(),
+			title: $("#editTitle").val(),
 			director: "",
 			year: "",
 			genre: "",
@@ -62,12 +76,14 @@ $("#editMovieButton").click(() => {
 		.then(response => {
 			$(".container").html("");
 			drawMovies();
-			$("#editMovieButton").attr("disabled", false);
+			$("#saveButton").attr("disabled", false);
 		})
 		.catch(error => console.log(error));
 });
+
 let moviesArray = [];
 drawMovies();
+
 let movieBody = {
 	title: $("#title").val(), rating: $("#")
 }
