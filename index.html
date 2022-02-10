@@ -19,6 +19,25 @@
 		<!--    <button id="editMovieButton">Edit Movie</button>-->
 	</form>
 	<div id="loading">Loading...</div>
+	<div>
+		<label for="movieSearch">Search Movie</label>
+		<input type="text" id="movieSearch" onkeyup="searchMovie()">
+	</div>
+	<div class="dropdown">
+		<button class="btn dropdown-toggle" type="button" id="dropdownMenuGenre" data-bs-toggle="dropdown">
+			Select Genre
+		</button>
+		<ul id="genreList" class="dropdown-menu"></ul>
+	</div>
+	<label><input type="radio" name="sortRating" value="5" onclick="searchRating()">5</label>
+	<label><input type="radio" name="sortRating" value="4" onclick="searchRating()">4</label>
+	<label><input type="radio" name="sortRating" value="3" onclick="searchRating()">3</label>
+	<label><input type="radio" name="sortRating" value="2" onclick="searchRating()">2</label>
+	<label><input type="radio" name="sortRating" value="1" onclick="searchRating()">1</label>
+	<button id="sortByName">Sort By Name</button>
+	<button id="sortByGenre">Sort By Genre</button>
+	<button id="sortByRating">Sort By Rating</button>
+
 	<div class="container"></div>
 	<!-- Button trigger modal -->
 	<button id="editMovieButton" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editMovieModal">

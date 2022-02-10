@@ -40,6 +40,27 @@ let getMovies = () => fetch(url)
 		moviesArray.length = 0;
 		data.forEach(movie => moviesArray.push(movie));
 		drawMovies(moviesArray);
+		data.forEach(movie => {
+			if(!genreList.includes(movie.genre)){
+				genreList.push(movie.genre);
+			}
+		})
+		genreList.forEach(genre => {
+			let genreButton = document.createElement("button");
+			genreButton.setAttribute("class", "btn btn-link dropdown-item");
+			genreButton.innerText = genre;
+			$('#genreList').append(genreButton);
+			genreButton.addEventListener("click", () => {
+				let matchingMovieGenre = []
+				moviesArray.forEach(movie => {
+					if(movie.genre === genre){
+						matchingMovieGenre.push(movie)
+					}
+				})
+				drawMovies(matchingMovieGenre)
+			})
+		})
+		console.log(genreList)
 		$("#loading").attr('style', 'display: none');
 	})
 	.catch(err => console.log(err));
@@ -103,4 +124,63 @@ let movieBody = {
 	title: $("#title").val(), rating: $("#")
 }
 let moviesArray = [];
+let genreList = [];
 getMovies();
+
+
+
+function searchMovie() {
+	let searchInput = $("#movieSearch").val();
+	let filter = searchInput.toUpperCase();
+	console.log(filter)
+	let filteredMovies = [];
+	moviesArray.forEach(function (movie) {
+		if (movie.title.toUpperCase().includes(filter)) {
+			filteredMovies.push(movie);
+			console.log(filteredMovies);
+		}
+	});
+	drawMovies(filteredMovies)
+}
+
+function searchRating() {
+	let searchInput = $("input[name='sortRating']:checked").val();
+	let filteredMovies = [];
+	moviesArray.forEach(function (movie) {
+		if (movie.rating.includes(searchInput)) {
+			filteredMovies.push(movie);
+			console.log(filteredMovies);
+		}
+	});
+	drawMovies(filteredMovies)
+}
+
+function sortMoviesName() {
+	moviesArray.sort(function (a, b) {
+		return (a.title > b.title) ? 1 : -1
+
+	})
+	drawMovies(moviesArray)
+}
+
+$("#sortByName").click(() => sortMoviesName())
+
+function sortMoviesGenre() {
+	moviesArray.sort(function (a, b) {
+		return (a.genre > b.genre) ? 1 : -1
+
+	})
+	drawMovies(moviesArray)
+}
+
+$("#sortByGenre").click(() => sortMoviesGenre())
+
+function sortMoviesRating() {
+	moviesArray.sort(function (a, b) {
+		return (a.rating < b.rating) ? 1 : -1
+
+	})
+	drawMovies(moviesArray)
+}
+
+$("#sortByRating").click(() => sortMoviesRating())
