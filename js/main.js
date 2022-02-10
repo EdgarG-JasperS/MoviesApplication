@@ -1,26 +1,45 @@
-const url = "https://rough-harvest-liver.glitch.me/movies"
-let drawMovies = () => fetch(url)
+const url = "https://rough-harvest-liver.glitch.me/movies";
+let drawMovies = moviesList => {
+	$(".container").html("");
+	moviesList.forEach(movieObject => {
+		let movieDiv = document.createElement("div");
+		movieDiv.setAttribute("id", "movie" + movieObject.id);
+		let movieTitle = document.createElement("h3");
+		movieTitle.innerText = movieObject.title;
+		movieDiv.append(movieTitle);
+		let movieRating = document.createElement("p");
+		let rating = Number(movieObject.rating);
+		for (let i = 0; i < rating; i++) {
+			movieRating.innerHTML += "&#9733;";
+		}
+		for (let i = 0; i < 5 - rating; i++) {
+			movieRating.innerHTML += "&#9734;";
+		}
+		movieDiv.append(movieRating);
+		let deleteButton = document.createElement("button");
+		deleteButton.setAttribute("id", "delete" + movieObject.id);
+		deleteButton.innerText = "Delete This Movie";
+		movieDiv.append(deleteButton);
+		$(".container").append(movieDiv);
+		deleteButton.addEventListener("click", () => {
+			deleteButton.setAttribute("disabled", true);
+			fetch(url + "/" + movieObject.id, {
+				method: "DELETE", headers: {'Content-Type': 'application/json'}
+			})
+				.then(response => {
+					$(".container").html("");
+					getMovies();
+				})
+				.catch(error => console.log(error));
+		});
+	});
+}
+let getMovies = () => fetch(url)
 	.then(response => response.json())
 	.then(data => {
-		let html = ''
-		for (let i = 0; i < data.length; i++) {
-			$('.container').append(`<div>
-				${data[i].title}
-				<button id="${data[i].id}delete" data-id=${data[i].id}>Delete This Movie</button>
-				</div>`);
-			$(`#${data[i].id}delete`).click(() => {
-				$(`#${data[i].id}delete`).attr("disabled", true);
-				fetch(url + "/" + data[i].id, {
-					method: "DELETE", headers: {'Content-Type': 'application/json'}
-				})
-					.then(response => {
-						$(".container").html("");
-						drawMovies();
-					})
-					.catch(error => console.log(error));
-			});
-			moviesArray.push(data[i]);
-		}
+		moviesArray.length = 0;
+		data.forEach(movie => moviesArray.push(movie));
+		drawMovies(moviesArray);
 		$("#loading").attr('style', 'display: none');
 	})
 	.catch(err => console.log(err));
@@ -40,31 +59,28 @@ $("#addMovieButton").click(function () {
 	})
 		.then(response => {
 			$(".container").html("");
-			drawMovies();
+			getMovies();
 			$("#addMovieButton").attr("disabled", false);
 		})
 		.catch(error => console.log(error));
 });
-
 $("#editMovieButton").click(() => {
-	$('#movieList').html('')
-	$('#movieList').text('')
-	$('#movieList').empty()
+	$("#movieList").html("");
 	moviesArray.forEach((element) => {
 		let movieButton = document.createElement("button");
 		movieButton.setAttribute("class", "btn btn-link dropdown-item");
 		movieButton.innerText = element.title;
 		$('#movieList').append(movieButton);
-		movieButton.addEventListener('click', () =>{
+		movieButton.addEventListener('click', () => {
 			$('#editTitle').val(element.title);
+			$('#editRating').val(element.rating);
 			$('#editID').val(element.id);
 		});
 	});
 });
-
 $("#saveButton").click(() => {
 	$("#saveButton").attr("disabled", true);
-	fetch(url + "/" + $('#editID').val(), {
+	fetch(`${url}/${$('#editID').val()}`, {
 		method: "PUT", headers: {'Content-Type': 'application/json'}, body: JSON.stringify({
 			title: $("#editTitle").val(),
 			director: "",
@@ -78,18 +94,13 @@ $("#saveButton").click(() => {
 	})
 		.then(response => {
 			$(".container").html("");
-			drawMovies();
+			getMovies();
 			$("#saveButton").attr("disabled", false);
-			moviesArray.length = 0;
 		})
 		.catch(error => console.log(error));
 });
-
 let movieBody = {
 	title: $("#title").val(), rating: $("#")
 }
-
-
 let moviesArray = [];
-
-drawMovies("ratings");
+getMovies();
