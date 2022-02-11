@@ -216,6 +216,7 @@ function sortMoviesRating() {
 
 $("#sortByRating").click(() => sortMoviesRating());
 $("#clearFilters").click(() => {
+	$("#movieSearch").val("");
 	$("input[name='sortRating']").attr("checked", false);
 	genreFilter = false;
 	ratingFilter = false;
