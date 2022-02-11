@@ -4,38 +4,67 @@ const url = "https://rough-harvest-liver.glitch.me/movies";
 let drawMovies = moviesList => {
 	$(".container").html("");
 	moviesList.forEach(movieObject => {
-		let movieDiv = document.createElement("div");
-		movieDiv.setAttribute("id", "movie" + movieObject.id);
-		movieDiv.setAttribute("class", "card");
-		let movieTitle = document.createElement("h3");
-		movieTitle.innerText = movieObject.title;
-		movieDiv.append(movieTitle);
-		let movieYear = document.createElement("p");
-		movieYear.innerText = movieObject.year;
-		movieDiv.append(movieYear);
-		let movieRating = document.createElement("p");
+		let ratingString = "";
 		let rating = Number(movieObject.rating);
 		for (let i = 0; i < rating; i++) {
-			movieRating.innerHTML += "&#9733;";
+			ratingString += "&#9733;";
 		}
 		for (let i = 0; i < 5 - rating; i++) {
-			movieRating.innerHTML += "&#9734;";
+			ratingString += "&#9734;";
 		}
-		movieDiv.append(movieRating);
-		let movieDirector = document.createElement("p");
-		movieDirector.innerText = "Director: " + movieObject.director;
-		movieDiv.append(movieDirector);
-		let movieActors = document.createElement("p");
-		movieActors.innerText = "Actors: " + movieObject.actors;
-		movieDiv.append(movieActors);
-		let moviePlot = document.createElement("p");
-		moviePlot.innerText = "Plot: " + movieObject.plot;
-		movieDiv.append(moviePlot);
-		let deleteButton = document.createElement("button");
-		deleteButton.setAttribute("id", "delete" + movieObject.id);
-		deleteButton.innerText = "Delete This Movie";
-		movieDiv.append(deleteButton);
-		$(".container").append(movieDiv);
+
+		$(".container").append(`
+			<div id="movie${movieObject.id}" class="card" style="width: 18rem;">
+				<div class="card-header bg-dark">
+					<img src="${movieObject.poster}" class="card-img-top">
+					<div class="title-bg">
+						<p class="p-0 m-1">${movieObject.genre}</p>
+						<p class="p-0 m-1">${ratingString}</p>
+					</div>
+				</div>
+				<div class="card-body">
+				<h3>${movieObject.title}</h3>
+					<p class="p-0 m-0">${movieObject.year}</p>
+					<p class="p-0 m-0">Plot: ${movieObject.plot}</p>
+					<p class="p-0 m-0">Director: ${movieObject.director}</p>
+					<p class="p-0 m-0">Actors: ${movieObject.actors}</p>
+					<button id="delete${movieObject.id}">Delete This Movie</button>
+				</div>
+			</div>
+		`);
+		// let movieDiv = document.createElement("div");
+		// movieDiv.setAttribute("id", "movie" + movieObject.id);
+		// movieDiv.setAttribute("class", "card");
+		// let movieTitle = document.createElement("h3");
+		// movieTitle.innerText = movieObject.title;
+		// movieDiv.append(movieTitle);
+		// let movieYear = document.createElement("p");
+		// movieYear.innerText = movieObject.year;
+		// movieDiv.append(movieYear);
+		// let movieRating = document.createElement("p");
+		// let rating = Number(movieObject.rating);
+		// for (let i = 0; i < rating; i++) {
+		// 	movieRating.innerHTML += "&#9733;";
+		// }
+		// for (let i = 0; i < 5 - rating; i++) {
+		// 	movieRating.innerHTML += "&#9734;";
+		// }
+		// movieDiv.append(movieRating);
+		// let movieDirector = document.createElement("p");
+		// movieDirector.innerText = "Director: " + movieObject.director;
+		// movieDiv.append(movieDirector);
+		// let movieActors = document.createElement("p");
+		// movieActors.innerText = "Actors: " + movieObject.actors;
+		// movieDiv.append(movieActors);
+		// let moviePlot = document.createElement("p");
+		// moviePlot.innerText = "Plot: " + movieObject.plot;
+		// movieDiv.append(moviePlot);
+		// let deleteButton = document.createElement("button");
+		// deleteButton.setAttribute("id", "delete" + movieObject.id);
+		// deleteButton.innerText = "Delete This Movie";
+		// movieDiv.append(deleteButton);
+		// $(".container").append(movieDiv);
+		let deleteButton = document.getElementById(`delete${movieObject.id}`)
 		deleteButton.addEventListener("click", () => {
 			deleteButton.setAttribute("disabled", true);
 			fetch(url + "/" + movieObject.id, {
