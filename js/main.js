@@ -1,8 +1,5 @@
 "use strict";
-
-// Constant Variables
 const url = "https://rough-harvest-liver.glitch.me/movies";
-
 // draw movies from input list
 let drawMovies = moviesList => {
 	$(".container").html("");
@@ -196,7 +193,7 @@ function sortMoviesName() {
 		return (a.title > b.title) ? 1 : -1
 	});
 	drawMovies(moviesArray)
-};
+}
 
 $("#sortByName").click(() => sortMoviesName())
 
