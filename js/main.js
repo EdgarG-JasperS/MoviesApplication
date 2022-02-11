@@ -14,21 +14,25 @@ let drawMovies = moviesList => {
 		}
 
 		$(".container").append(`
-			<div id="movie${movieObject.id}" class="card" style="width: 18rem;">
+			<div id="movie${movieObject.id}" class="card">
 				<div class="card-header bg-dark">
-					<img src="${movieObject.poster}" class="card-img-top">
-					<div class="title-bg">
-						<p class="p-0 m-1">${movieObject.genre}</p>
-						<p class="p-0 m-1">${ratingString}</p>
-					</div>
+					<a href="#card${movieObject.id}" data-bs-toggle="collapse">
+						<img src="${movieObject.poster}" class="card-img-top">
+						<div class="card-bg">
+							<p class="p-0 m-1">${movieObject.genre}</p>
+							<p class="p-0 m-1">${ratingString}</p>
+						</div>
+					</a>
 				</div>
-				<div class="card-body">
-				<h3>${movieObject.title}</h3>
-					<p class="p-0 m-0">${movieObject.year}</p>
-					<p class="p-0 m-0">Plot: ${movieObject.plot}</p>
-					<p class="p-0 m-0">Director: ${movieObject.director}</p>
-					<p class="p-0 m-0">Actors: ${movieObject.actors}</p>
-					<button id="delete${movieObject.id}">Delete This Movie</button>
+				<div id="card${movieObject.id}" class="collapse">
+					<div class="card-body">
+					<h3>${movieObject.title}</h3>
+						<p class="p-0 m-0">${movieObject.year}</p>
+						<p class="p-0 m-0">Plot: ${movieObject.plot}</p>
+						<p class="p-0 m-0">Director: ${movieObject.director}</p>
+						<p class="p-0 m-0">Actors: ${movieObject.actors}</p>
+						<button id="delete${movieObject.id}">Delete This Movie</button>
+					</div>
 				</div>
 			</div>
 		`);
