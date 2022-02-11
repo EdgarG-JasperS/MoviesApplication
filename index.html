@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="css/main.css">
 </head>
 <body>
+	<div class="h1" id="">My Movie Collection</div>
 	<div>
 		<label for="movieSearch">Search Movie</label>
 		<input type="text" id="movieSearch" onkeyup="searchMovie()">
@@ -46,6 +47,9 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 				</div>
 				<div class="modal-body">
+					<label><input type="text" id="addMovieSearch" name="addMovieSearch" placeholder="Search Movie"></label>
+					<button type="button" id="addMovieSearchButton">Search</button>
+					<hr>
 					<label><input type="text" id="addTitle" name="addTitle" placeholder="Title"></label>
 					<br>
 					<label><input type="text" id="addDirector" name="addDirector" placeholder="Director"></label>
@@ -60,9 +64,10 @@
 					<br>
 					<label><input type="radio" name="addRating" value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</label>
 					<label><input type="radio" name="addRating" value="4">&#9733;&#9733;&#9733;&#9733;</label>
-					<label><input type="radio" name="addRating" value="3">&#9733;&#9733;&#9733;</label>
+					<label class="goldStar"><input type="radio" name="addRating" value="3">&#9733;&#9733;&#9733;</label>
 					<label><input type="radio" name="addRating" value="2">&#9733;&#9733;</label>
 					<label><input type="radio" name="addRating" value="1">&#9733;</label>
+					<label class="invisible"><input type="text" name="poster" id="poster"></label>
 				</div>
 				<div class="modal-footer">
 					<button id="addModalCloseButton" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -105,6 +110,7 @@
 					<label><input type="radio" name="editRating" value="2">&#9733;&#9733;</label>
 					<label><input type="radio" name="editRating" value="1">&#9733;</label>
 					<label><input type="text" id="editID" name="id" class="invisible"></label>
+					<label class="invisible"><input type="text" id="editPoster" name="editPoster"></label>
 				</div>
 				<div class="modal-footer">
 					<button id="closeButton" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close

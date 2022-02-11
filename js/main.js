@@ -5,22 +5,23 @@ let drawMovies = moviesList => {
 	$(".container").html("");
 	moviesList.forEach(movieObject => {
 		let ratingString = "";
+		let goldRatingString = "";
 		let rating = Number(movieObject.rating);
 		for (let i = 0; i < rating; i++) {
-			ratingString += "&#9733;";
+			goldRatingString += "&#9733;";
 		}
 		for (let i = 0; i < 5 - rating; i++) {
-			ratingString += "&#9734;";
+			ratingString += "&#9733;";
 		}
 
 		$(".container").append(`
-			<div id="movie${movieObject.id}" class="card">
+			<div id="movie${movieObject.id}" class="card mx-1 my-1">
 				<div class="card-header bg-dark">
 					<a href="#card${movieObject.id}" data-bs-toggle="collapse">
 						<img src="${movieObject.poster}" class="card-img-top">
 						<div class="card-bg">
 							<p class="p-0 m-1">${movieObject.genre}</p>
-							<p class="p-0 m-1">${ratingString}</p>
+							<p class="p-0 m-1"><span class="goldStar">${goldRatingString}</span>${ratingString}</p>
 						</div>
 					</a>
 				</div>
@@ -82,17 +83,24 @@ let drawMovies = moviesList => {
 		});
 	});
 }
+
 // get movies from external database, then draw
 let getMovies = () => fetch(url)
 	.then(response => response.json())
 	.then(data => {
 		moviesArray.length = 0;
+		genreList.length = 0;
+		$("#genreList").html("")
 		data.forEach(movie => moviesArray.push(movie));
+		drawnMovies = moviesArray;
 		drawMovies(moviesArray);
 		data.forEach(movie => {
-			if (!genreList.includes(movie.genre)) {
-				genreList.push(movie.genre);
-			}
+			let genreArray = movie.genre.split(", ")
+			genreArray.forEach(genre => {
+				if (!genreList.includes(genre)) {
+					genreList.push(genre);
+				}
+			});
 		});
 		genreList.forEach(genre => {
 			let genreButton = document.createElement("button");
@@ -119,7 +127,7 @@ $("#addMovieButton").click(function () {
 			actors: $("#addActors").val(),
 			plot: $("#addPlot").val(),
 			rating: $("input[name='addRating']:checked").val(),
-			poster: ""
+			poster: $("#poster").val()
 		})
 	})
 		.then(response => {
@@ -145,10 +153,12 @@ $("#editMovieButton").click(() => {
 			$('#editPlot').val(element.plot);
 			$('input[value=' + element.rating + '][name="editRating"]').attr("checked", true);
 			$('#editID').val(element.id);
+			$("#editPoster").val(element.poster);
 		});
 	});
 });
 $("#saveButton").click(() => {
+	// console.log(moviesArray[$("#editID").val() - 1].poster);
 	$("#saveButton").attr("disabled", true);
 	console.log($("#editID").val());
 	fetch(url + "/" + $('#editID').val(), {
@@ -160,12 +170,14 @@ $("#saveButton").click(() => {
 			actors: $("#editActors").val(),
 			plot: $("#editPlot").val(),
 			rating: $("input[name='editRating']:checked").val(),
+			poster: $("#editPoster").val()
 		})
 	})
 		.then(response => {
 			$(".container").html("");
 			getMovies();
 			$("#saveButton").attr("disabled", false);
+
 		})
 		.catch(error => console.log(error));
 });
@@ -180,8 +192,10 @@ let titleFilter = false;
 let selectedGenre = "";
 getMovies();
 
+let drawnMovies = []
+
 let filterMovies = () => {
-	let filteredMovies = moviesArray;
+	let filteredMovies = drawnMovies;
 	if (titleFilter) {
 		let searchInput = $("#movieSearch").val().toUpperCase();
 		filteredMovies = filteredMovies.reduce((filteredByTitle, movie) => {
@@ -193,7 +207,7 @@ let filterMovies = () => {
 	}
 	if (genreFilter) {
 		filteredMovies = filteredMovies.reduce((filteredByGenre, movie) => {
-			if (movie.genre === selectedGenre) {
+			if (movie.genre.includes(selectedGenre)) {
 				filteredByGenre.push(movie);
 			}
 			return filteredByGenre;
@@ -222,41 +236,57 @@ function searchRating() {
 }
 
 function sortMoviesName() {
-	moviesArray.sort(function (a, b) {
+	drawnMovies.sort(function (a, b) {
 		return (a.title > b.title) ? 1 : -1
 	});
-	drawMovies(moviesArray)
+	filterMovies()
 }
 
 $("#sortByName").click(() => sortMoviesName())
 
 function sortMoviesGenre() {
-	moviesArray.sort(function (a, b) {
+	drawnMovies.sort(function (a, b) {
 		return (a.genre > b.genre) ? 1 : -1
 
 	});
-	drawMovies(moviesArray);
+	filterMovies();
 }
 
 $("#sortByGenre").click(() => sortMoviesGenre())
 
 function sortMoviesRating() {
-	moviesArray.sort(function (a, b) {
+	drawnMovies.sort(function (a, b) {
 		return (a.rating < b.rating) ? 1 : -1
 	});
-	drawMovies(moviesArray);
+	filterMovies();
 }
 
 $("#sortByRating").click(() => sortMoviesRating());
 $("#clearFilters").click(() => {
+	drawnMovies = moviesArray;
 	$("#movieSearch").val("");
 	$("input[name='sortRating']").attr("checked", false);
 	genreFilter = false;
 	ratingFilter = false;
 	titleFilter = false;
-	drawMovies(moviesArray);
+	drawMovies(drawnMovies);
 });
-// fetch("http://www.omdbapi.com/?apikey=" + OMDB_KEY + "&t=star+wars")
-// 	.then(result => result.json())
-// 	.then(data => console.log(data))
-// 	.catch(error => console.log(error));
+
+$("#addMovieSearchButton").click(() => {
+	let movieTitle = $("#addMovieSearch").val().split(" ").join("+").toLowerCase()
+	console.log(movieTitle);
+	fetch(`http://www.omdbapi.com/?apikey=${OMDB_KEY}&t=${movieTitle}`)
+		.then(result => result.json())
+		.then(data => {
+			console.log(data)
+			$("#addTitle").val(data.Title);
+			$("#addDirector").val(data.Director);
+			$("#addYear").val(data.Year);
+			$("#addGenre").val(data.Genre);
+			$("#addActors").val(data.Actors);
+			$("#addPlot").val(data.Plot);
+			$("#poster").val(data.Poster)
+
+		})
+		.catch(error => console.log(error));
+})
