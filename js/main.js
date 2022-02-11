@@ -1,5 +1,8 @@
 "use strict";
+
+// Constant Variables
 const url = "https://rough-harvest-liver.glitch.me/movies";
+
 // draw movies from input list
 let drawMovies = moviesList => {
 	$(".container").html("");
