@@ -70,13 +70,9 @@ let getMovies = () => fetch(url)
 			genreButton.innerText = genre;
 			$('#genreList').append(genreButton);
 			genreButton.addEventListener("click", () => {
-				let matchingMovieGenre = []
-				moviesArray.forEach(movie => {
-					if (movie.genre === genre) {
-						matchingMovieGenre.push(movie)
-					}
-				});
-				drawMovies(matchingMovieGenre)
+				genreFilter = true;
+				selectedGenre = genre;
+				filterMovies();
 			});
 		});
 		$("#loading").attr('style', 'display: none');
@@ -148,39 +144,59 @@ let movieBody = {
 }
 let moviesArray = [];
 let genreList = [];
+let genreFilter = false;
+let ratingFilter = false;
+let titleFilter = false;
+let selectedGenre = "";
 getMovies();
 
+let filterMovies = () => {
+	let filteredMovies = moviesArray;
+	if (titleFilter) {
+		let searchInput = $("#movieSearch").val().toUpperCase();
+		filteredMovies = filteredMovies.reduce((filteredByTitle, movie) => {
+			if (movie.title.toUpperCase().includes(searchInput)) {
+				filteredByTitle.push(movie);
+			}
+			return filteredByTitle;
+		}, []);
+	}
+	if (genreFilter) {
+		filteredMovies = filteredMovies.reduce((filteredByGenre, movie) => {
+			if (movie.genre === selectedGenre) {
+				filteredByGenre.push(movie);
+			}
+			return filteredByGenre;
+		}, []);
+	}
+	if (ratingFilter) {
+		let selectedRating = $("input[name='sortRating']:checked").val();
+		filteredMovies = filteredMovies.reduce((filteredByRating, movie) => {
+			if (movie.rating === selectedRating) {
+				filteredByRating.push(movie);
+			}
+			return filteredByRating;
+		}, []);
+	}
+	drawMovies(filteredMovies);
+}
+
 function searchMovie() {
-	let searchInput = $("#movieSearch").val();
-	let filter = searchInput.toUpperCase();
-	console.log(filter)
-	let filteredMovies = [];
-	moviesArray.forEach(function (movie) {
-		if (movie.title.toUpperCase().includes(filter)) {
-			filteredMovies.push(movie);
-			console.log(filteredMovies);
-		}
-	});
-	drawMovies(filteredMovies)
+	titleFilter = true;
+	filterMovies();
 }
 
 function searchRating() {
-	let searchInput = $("input[name='sortRating']:checked").val();
-	let filteredMovies = [];
-	moviesArray.forEach(function (movie) {
-		if (movie.rating.includes(searchInput)) {
-			filteredMovies.push(movie);
-		}
-	});
-	drawMovies(filteredMovies)
+	ratingFilter = true;
+	filterMovies();
 }
 
 function sortMoviesName() {
 	moviesArray.sort(function (a, b) {
 		return (a.title > b.title) ? 1 : -1
-	})
+	});
 	drawMovies(moviesArray)
-}
+};
 
 $("#sortByName").click(() => sortMoviesName())
 
@@ -188,8 +204,8 @@ function sortMoviesGenre() {
 	moviesArray.sort(function (a, b) {
 		return (a.genre > b.genre) ? 1 : -1
 
-	})
-	drawMovies(moviesArray)
+	});
+	drawMovies(moviesArray);
 }
 
 $("#sortByGenre").click(() => sortMoviesGenre())
@@ -197,16 +213,19 @@ $("#sortByGenre").click(() => sortMoviesGenre())
 function sortMoviesRating() {
 	moviesArray.sort(function (a, b) {
 		return (a.rating < b.rating) ? 1 : -1
-	})
-	drawMovies(moviesArray)
+	});
+	drawMovies(moviesArray);
 }
 
 $("#sortByRating").click(() => sortMoviesRating());
 $("#clearFilters").click(() => {
 	$("input[name='sortRating']").attr("checked", false);
+	genreFilter = false;
+	ratingFilter = false;
+	titleFilter = false;
 	drawMovies(moviesArray);
 });
-fetch("http://www.omdbapi.com/?apikey=" + OMDB_KEY + "&t=star+wars")
-	.then(result => result.json())
-	.then(data => console.log(data))
-	.catch(error => console.log(error));
+// fetch("http://www.omdbapi.com/?apikey=" + OMDB_KEY + "&t=star+wars")
+// 	.then(result => result.json())
+// 	.then(data => console.log(data))
+// 	.catch(error => console.log(error));
