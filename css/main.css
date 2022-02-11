@@ -1,33 +1,48 @@
 .card-header {
-    position: relative;
+	position: relative;
 }
 
 .card-bg {
-    text-transform: capitalize;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    color: white;
-    background: rgba(0, 0, 0, 0.4);
+	text-transform: capitalize;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	color: white;
+	background: rgba(0, 0, 0, 0.4);
 }
 
 .card img {
-    width: 200px;
-    height: 300px;
+	width: 200px;
+	height: 300px;
 }
 
 .movie-collection {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
 }
+
 .card {
-    max-width: 230px;
-    border: none;
+	max-width: 230px;
+	border: none;
+	background-color: lightgrey;
+	box-shadow: rgb(85, 91, 255) 0px 0px 0px 3px, rgb(31, 193, 27) 0px 0px 0px 6px, rgb(255, 217, 19) 0px 0px 0px 9px, rgb(255, 156, 85) 0px 0px 0px 12px, rgb(255, 85, 85) 0px 0px 0px 15px;
 }
 
 .goldStar {
-    color: gold;
+	color: gold;
+}
+
+.stars {
+	font-size: 2rem;
+}
+
+body {
+	background-color: white;
+}
+
+.hoverStars {
+	color: gold;
 }

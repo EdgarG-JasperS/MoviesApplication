@@ -8,36 +8,52 @@
 </head>
 <body>
 	<div class="h1" id="">My Movie Collection</div>
-	<div>
-		<label for="movieSearch">Search Movie</label>
-		<input type="text" id="movieSearch" onkeyup="searchMovie()">
+	<div class="d-flex justify-content-center align-items-center gap-3">
+		<div>
+			<label for="movieSearch">Search Movie</label>
+			<input type="text" id="movieSearch" onkeyup="searchMovie()">
+		</div>
+		<div class="dropdown">
+			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuGenre" data-bs-toggle="dropdown">
+				Select Genre
+			</button>
+			<ul id="genreList" class="dropdown-menu"></ul>
+		</div>
+		<div class="stars">
+			<label id="oneStarFilter"><input hidden type="radio" name="sortRating" value="1" onclick="searchRating()">&#9733;
+			</label>
+			<label id="twoStarFilter"><input hidden type="radio" name="sortRating" value="2" onclick="searchRating()">&#9733;
+			</label>
+			<label id="threeStarFilter"><input hidden type="radio" name="sortRating" value="3" onclick="searchRating()">&#9733;
+			</label>
+			<label id="fourStarFilter"><input hidden type="radio" name="sortRating" value="4" onclick="searchRating()">&#9733;
+			</label>
+			<label id="fiveStarFilter"><input hidden type="radio" name="sortRating" value="5" onclick="searchRating()">&#9733;
+			</label>
+		</div>
+		<button class="btn btn-secondary" id="clearFilters">Clear Filters</button>
 	</div>
-	<div class="dropdown">
-		<button class="btn dropdown-toggle" type="button" id="dropdownMenuGenre" data-bs-toggle="dropdown">
-			Select Genre
-		</button>
-		<ul id="genreList" class="dropdown-menu"></ul>
+	<div class="container mb-2">
+		<div class="d-flex justify-content-between">
+			<div>
+				<button id="openAddMovieModal" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMovieModal">
+					Add Movie
+				</button>
+				<button id="editMovieButton" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editMovieModal">
+					Edit Movie
+				</button>
+			</div>
+			<div class="d-flex justify-content-center align-items-center gap-2">
+				<button class="btn btn-secondary" id="sortByName">Sort By Name</button>
+				<button class="btn btn-secondary" id="sortByGenre">Sort By Genre</button>
+				<button class="btn btn-secondary" id="sortByRating">Sort By Rating</button>
+			</div>
+		</div>
 	</div>
-	<label><input type="radio" name="sortRating" value="5" onclick="searchRating()">5</label>
-	<label><input type="radio" name="sortRating" value="4" onclick="searchRating()">4</label>
-	<label><input type="radio" name="sortRating" value="3" onclick="searchRating()">3</label>
-	<label><input type="radio" name="sortRating" value="2" onclick="searchRating()">2</label>
-	<label><input type="radio" name="sortRating" value="1" onclick="searchRating()">1</label>
-	<button id="sortByName">Sort By Name</button>
-	<button id="sortByGenre">Sort By Genre</button>
-	<button id="sortByRating">Sort By Rating</button>
-	<button id="clearFilters">Clear Filters</button>
-
 	<div class="container movie-collection"></div>
-
-	<div id="loading">Loading...</div>
+	<div class="d-flex justify-content-center">
+		<img id="loading" class="" src="img/loading-indicator.gif" alt="loading indicator"></div>
 	<!-- Button trigger modal -->
-	<button id="openAddMovieModal" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMovieModal">
-		Add Movie
-	</button>
-	<button id="editMovieButton" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editMovieModal">
-		Edit Movie
-	</button>
 	<!-- Modal -->
 	<div class="modal fade" id="addMovieModal" tabindex="-1">
 		<div class="modal-dialog">
@@ -46,9 +62,10 @@
 					<h5 class="modal-title">Add Movie</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 				</div>
-				<div class="modal-body">
-					<label><input type="text" id="addMovieSearch" name="addMovieSearch" placeholder="Search Movie"></label>
-					<button type="button" id="addMovieSearchButton">Search</button>
+				<div id="addMovieModalForm" class="modal-body">
+					<label><input type="text" id="addMovieSearch" name="addMovieSearch" placeholder="Search Movie">
+					</label>
+					<button class="btn btn-secondary" type="button" id="addMovieSearchButton">Search</button>
 					<hr>
 					<label><input type="text" id="addTitle" name="addTitle" placeholder="Title"></label>
 					<br>
@@ -62,11 +79,13 @@
 					<br>
 					<label><input type="text" id="addPlot" name="addPlot" placeholder="Plot"></label>
 					<br>
-					<label><input type="radio" name="addRating" value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</label>
-					<label><input type="radio" name="addRating" value="4">&#9733;&#9733;&#9733;&#9733;</label>
-					<label class="goldStar"><input type="radio" name="addRating" value="3">&#9733;&#9733;&#9733;</label>
-					<label><input type="radio" name="addRating" value="2">&#9733;&#9733;</label>
-					<label><input type="radio" name="addRating" value="1">&#9733;</label>
+					<div class="stars">
+						<label id="addRatingLabel1"><input hidden type="radio" name="addRating" value="1">&#9733;</label>
+						<label id="addRatingLabel2"><input hidden type="radio" name="addRating" value="2">&#9733;</label>
+						<label id="addRatingLabel3"><input hidden type="radio" name="addRating" value="3">&#9733;</label>
+						<label id="addRatingLabel4"><input hidden type="radio" name="addRating" value="4">&#9733;</label>
+						<label id="addRatingLabel5"><input hidden type="radio" name="addRating" value="5">&#9733;</label>
+					</div>
 					<label class="invisible"><input type="text" name="poster" id="poster"></label>
 				</div>
 				<div class="modal-footer">
@@ -104,11 +123,13 @@
 					<br>
 					<label><input type="text" id="editPlot" name="plot" placeholder="Plot"></label>
 					<br>
-					<label><input type="radio" name="editRating" value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</label>
-					<label><input type="radio" name="editRating" value="4">&#9733;&#9733;&#9733;&#9733;</label>
-					<label><input type="radio" name="editRating" value="3">&#9733;&#9733;&#9733;</label>
-					<label><input type="radio" name="editRating" value="2">&#9733;&#9733;</label>
-					<label><input type="radio" name="editRating" value="1">&#9733;</label>
+					<div class="stars">
+						<label id="editRatingLabel1"><input hidden type="radio" name="editRating" value="1">&#9733;</label>
+						<label id="editRatingLabel2"><input hidden type="radio" name="editRating" value="2">&#9733;</label>
+						<label id="editRatingLabel3"><input hidden type="radio" name="editRating" value="3">&#9733;</label>
+						<label id="editRatingLabel4"><input hidden type="radio" name="editRating" value="4">&#9733;</label>
+						<label id="editRatingLabel5"><input hidden type="radio" name="editRating" value="5">&#9733;</label>
+					</div>
 					<label><input type="text" id="editID" name="id" class="invisible"></label>
 					<label class="invisible"><input type="text" id="editPoster" name="editPoster"></label>
 				</div>
