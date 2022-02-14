@@ -202,6 +202,67 @@ let addHoverStars = (star1, star2, star3, star4, star5) => {
 		star5.removeClass("hoverStars");
 	});
 }
+let searchMovie = () => {
+	titleFilter = true;
+	filterMovies();
+}
+let searchRating = () => {
+	ratingFilter = true;
+	let selectedRating = $("input[name='sortRating']:checked").val();
+	for (let i = 1; i <= Number(selectedRating); i++) {
+		$(`input[name='sortRating'][value=${i}]`).parent().addClass("goldStar");
+	}
+	for (let i = 5; i > Number(selectedRating); i--) {
+		$(`input[name='sortRating'][value=${i}]`).parent().removeClass("goldStar");
+	}
+	filterMovies();
+}
+let sortMoviesName = () => {
+	drawnMovies.sort((a, b) => {
+		return (a.title >= b.title) ? 1 : -1
+	});
+	filterMovies();
+}
+let sortMoviesGenre = () => {
+	drawnMovies.sort((a, b) => {
+		return (a.genre >= b.genre) ? 1 : -1;
+	});
+	filterMovies();
+}
+let sortMoviesRating = () => {
+	drawnMovies.sort((a, b) => {
+		return (a.rating <= b.rating) ? 1 : -1;
+	});
+	filterMovies();
+}
+$("#sortByName").click(() => sortMoviesName());
+$("#sortByGenre").click(() => sortMoviesGenre());
+$("#sortByRating").click(() => sortMoviesRating());
+$("#clearFilters").click(() => {
+	drawnMovies = moviesArray;
+	$("#movieSearch").val("");
+	$("input[name='sortRating']").attr("checked", false);
+	$("input[name='sortRating']").parent().removeClass("goldStar");
+	genreFilter = false;
+	ratingFilter = false;
+	titleFilter = false;
+	drawMovies(drawnMovies);
+});
+$("#addMovieSearchButton").click(() => {
+	let movieTitle = $("#addMovieSearch").val().split(" ").join("+").toLowerCase()
+	fetch(`http://www.omdbapi.com/?apikey=${OMDB_KEY}&t=${movieTitle}`)
+		.then(result => result.json())
+		.then(data => {
+			$("#addTitle").val(data.Title);
+			$("#addDirector").val(data.Director);
+			$("#addYear").val(data.Year);
+			$("#addGenre").val(data.Genre);
+			$("#addActors").val(data.Actors);
+			$("#addPlot").val(data.Plot);
+			$("#poster").val(data.Poster)
+		})
+		.catch(error => console.log(error));
+});
 $("input[name='addRating']").click(() => {
 	let selectedRating = $("input[name='addRating']:checked").val();
 	for (let i = 1; i <= Number(selectedRating); i++) {
@@ -288,39 +349,6 @@ $("#saveButton").click(() => {
 			$("#saveButton").attr("disabled", false);
 		});
 });
-let searchMovie = () => {
-	titleFilter = true;
-	filterMovies();
-}
-let searchRating = () => {
-	ratingFilter = true;
-	let selectedRating = $("input[name='sortRating']:checked").val();
-	for (let i = 1; i <= Number(selectedRating); i++) {
-		$(`input[name='sortRating'][value=${i}]`).parent().addClass("goldStar");
-	}
-	for (let i = 5; i > Number(selectedRating); i--) {
-		$(`input[name='sortRating'][value=${i}]`).parent().removeClass("goldStar");
-	}
-	filterMovies();
-}
-let sortMoviesName = () => {
-	drawnMovies.sort((a, b) => {
-		return (a.title >= b.title) ? 1 : -1
-	});
-	filterMovies();
-}
-let sortMoviesGenre = () => {
-	drawnMovies.sort((a, b) => {
-		return (a.genre >= b.genre) ? 1 : -1;
-	});
-	filterMovies();
-}
-let sortMoviesRating = () => {
-	drawnMovies.sort((a, b) => {
-		return (a.rating <= b.rating) ? 1 : -1;
-	});
-	filterMovies();
-}
 const url = "https://rough-harvest-liver.glitch.me/movies";
 let moviesArray = [];
 let drawnMovies = [];
@@ -333,31 +361,3 @@ addHoverStars($("#addRatingLabel1"), $("#addRatingLabel2"), $("#addRatingLabel3"
 addHoverStars($("#editRatingLabel1"), $("#editRatingLabel2"), $("#editRatingLabel3"), $("#editRatingLabel4"), $("#editRatingLabel5"));
 addHoverStars($("#oneStarFilter"), $("#twoStarFilter"), $("#threeStarFilter"), $("#fourStarFilter"), $("#fiveStarFilter"));
 getMovies();
-$("#sortByName").click(() => sortMoviesName());
-$("#sortByGenre").click(() => sortMoviesGenre());
-$("#sortByRating").click(() => sortMoviesRating());
-$("#clearFilters").click(() => {
-	drawnMovies = moviesArray;
-	$("#movieSearch").val("");
-	$("input[name='sortRating']").attr("checked", false);
-	$("input[name='sortRating']").parent().removeClass("goldStar");
-	genreFilter = false;
-	ratingFilter = false;
-	titleFilter = false;
-	drawMovies(drawnMovies);
-});
-$("#addMovieSearchButton").click(() => {
-	let movieTitle = $("#addMovieSearch").val().split(" ").join("+").toLowerCase()
-	fetch(`http://www.omdbapi.com/?apikey=${OMDB_KEY}&t=${movieTitle}`)
-		.then(result => result.json())
-		.then(data => {
-			$("#addTitle").val(data.Title);
-			$("#addDirector").val(data.Director);
-			$("#addYear").val(data.Year);
-			$("#addGenre").val(data.Genre);
-			$("#addActors").val(data.Actors);
-			$("#addPlot").val(data.Plot);
-			$("#poster").val(data.Poster)
-		})
-		.catch(error => console.log(error));
-});
