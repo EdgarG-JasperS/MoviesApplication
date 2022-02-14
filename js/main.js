@@ -59,7 +59,6 @@ let drawMovies = moviesList => {
 				method: "DELETE", headers: {'Content-Type': 'application/json'}
 			})
 				.then(() => {
-					$(".movie-collection").html("");
 					getMovies();
 				})
 				.catch(error => console.log(error));
@@ -287,7 +286,6 @@ $("#addMovieButton").click(() => {
 		})
 	})
 		.then(() => {
-			$(".movie-collection").html("");
 			getMovies();
 			$("#addMovieButton").attr("disabled", false);
 			$("#addMovieSearch").val("");
@@ -330,7 +328,6 @@ $("#saveButton").click(() => {
 		})
 	})
 		.then(() => {
-			$(".movie-collection").html("");
 			getMovies();
 			$("#saveButton").attr("disabled", false);
 			$("#editTitle").val("");
