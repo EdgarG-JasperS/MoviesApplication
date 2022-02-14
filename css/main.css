@@ -19,23 +19,17 @@ body {
 	color: white;
 }
 
-.card-header {
-	position: relative;
+.stars {
+	font-size: 2rem;
+	color: white
 }
 
-.card-bg {
-	text-transform: capitalize;
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	color: white;
-	background: rgba(0, 0, 0, 0.4);
+.goldStar {
+	color: gold;
 }
 
-.card img {
-	width: 200px;
-	height: 300px;
+.hoverStars {
+	color: gold;
 }
 
 .movie-collection {
@@ -53,54 +47,34 @@ body {
 }
 
 .card-header {
+	position: relative;
+}
+
+.card img {
+	width: 200px;
+	height: 300px;
+}
+
+.card-bg {
+	text-transform: capitalize;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	color: white;
+	background: rgba(0, 0, 0, 0.4);
+}
+
+.card-header {
 	box-shadow: rgb(85, 91, 255) 0px 0px 0px 3px,
-		rgb(31, 193, 27) 0px 0px 0px 6px,
-		rgb(255, 217, 19) 0px 0px 0px 9px,
-		rgb(255, 156, 85) 0px 0px 0px 12px,
-		rgb(255, 85, 85) 0px 0px 0px 15px;
+	rgb(31, 193, 27) 0px 0px 0px 6px,
+	rgb(255, 217, 19) 0px 0px 0px 9px,
+	rgb(255, 156, 85) 0px 0px 0px 12px,
+	rgb(255, 85, 85) 0px 0px 0px 15px;
 }
 
-.goldStar {
-	color: gold;
-}
-
-.stars {
-	font-size: 2rem;
-	color: white
-}
-
-.hoverStars {
-	color: gold;
-}
-
-.modal-header {
-	color: white;
-	background: linear-gradient(
-			54deg,
-			rgb(255, 85, 85) 0%,
-			rgb(255, 156, 85) 25%,
-			rgb(255, 217, 19) 50%,
-			rgb(31, 193, 27) 75%,
-			rgb(85, 91, 255) 100%);
-}
-
-.modal-footer {
-	color: white;
-	background: linear-gradient(
-			54deg,
-			rgb(255, 85, 85) 0%,
-			rgb(255, 156, 85) 25%,
-			rgb(255, 217, 19) 50%,
-			rgb(31, 193, 27) 75%,
-			rgb(85, 91, 255) 100%);
-}
-
-.modal-title {
-	text-shadow: 2px 2px 4px rgba(20, 9, 5, 0.22);
-}
-
-.modal-stars {
-	font-size: 2rem;
+a:any-link {
+	color: lightblue;
 }
 
 .movieDelete {
@@ -115,6 +89,21 @@ body {
 	text-shadow: 2px 2px 4px rgba(20, 9, 5, 0.22);
 }
 
+.modal-header {
+	color: white;
+	background: linear-gradient(
+			54deg,
+			rgb(255, 85, 85) 0%,
+			rgb(255, 156, 85) 25%,
+			rgb(255, 217, 19) 50%,
+			rgb(31, 193, 27) 75%,
+			rgb(85, 91, 255) 100%);
+}
+
+.modal-title {
+	text-shadow: 2px 2px 4px rgba(20, 9, 5, 0.22);
+}
+
 #addPlot {
 	width: 95%;
 	height: 150px;
@@ -125,8 +114,19 @@ body {
 	height: 150px;
 }
 
-a:any-link {
-	color: lightblue;
+.modal-stars {
+	font-size: 2rem;
+}
+
+.modal-footer {
+	color: white;
+	background: linear-gradient(
+			54deg,
+			rgb(255, 85, 85) 0%,
+			rgb(255, 156, 85) 25%,
+			rgb(255, 217, 19) 50%,
+			rgb(31, 193, 27) 75%,
+			rgb(85, 91, 255) 100%);
 }
 
 .disclaimer {
