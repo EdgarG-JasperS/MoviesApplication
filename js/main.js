@@ -1,5 +1,4 @@
 "use strict";
-const url = "https://rough-harvest-liver.glitch.me/movies";
 let drawMovies = moviesList => {
 	$(".movie-collection").html("");
 	moviesList.forEach(movieObject => {
@@ -55,7 +54,7 @@ let drawMovies = moviesList => {
 		`);
 		let deleteButton = document.getElementById(`delete${movieObject.id}`)
 		deleteButton.addEventListener("click", () => {
-			deleteButton.setAttribute("disabled", true);
+			deleteButton.setAttribute("disabled", "");
 			fetch(url + "/" + movieObject.id, {
 				method: "DELETE", headers: {'Content-Type': 'application/json'}
 			})
@@ -104,7 +103,7 @@ let getMovies = () => fetch(url)
 		genreList.length = 0;
 		$("#genreList").html("")
 		data.forEach(movie => moviesArray.push(movie));
-		moviesArray.sort(function (a, b) {
+		moviesArray.sort((a, b) => {
 			return (a.title > b.title) ? 1 : -1
 		});
 		$("#movieList").html("");
@@ -203,9 +202,6 @@ let addHoverStars = (star1, star2, star3, star4, star5) => {
 		star5.removeClass("hoverStars");
 	});
 }
-addHoverStars($("#addRatingLabel1"), $("#addRatingLabel2"), $("#addRatingLabel3"), $("#addRatingLabel4"), $("#addRatingLabel5"));
-addHoverStars($("#editRatingLabel1"), $("#editRatingLabel2"), $("#editRatingLabel3"), $("#editRatingLabel4"), $("#editRatingLabel5"));
-addHoverStars($("#oneStarFilter"), $("#twoStarFilter"), $("#threeStarFilter"), $("#fourStarFilter"), $("#fiveStarFilter"));
 $("input[name='addRating']").click(() => {
 	let selectedRating = $("input[name='addRating']:checked").val();
 	for (let i = 1; i <= Number(selectedRating); i++) {
@@ -215,7 +211,7 @@ $("input[name='addRating']").click(() => {
 		$(`input[name='addRating'][value=${i}]`).parent().removeClass("goldStar");
 	}
 });
-$("#addMovieButton").click(function () {
+$("#addMovieButton").click(() => {
 	$("#addMovieButton").attr("disabled", true);
 	fetch(url, {
 		method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({
@@ -292,14 +288,6 @@ $("#saveButton").click(() => {
 			$("#saveButton").attr("disabled", false);
 		});
 });
-let moviesArray = [];
-let genreList = [];
-let genreFilter = false;
-let ratingFilter = false;
-let titleFilter = false;
-let selectedGenre = "";
-getMovies();
-let drawnMovies = [];
 let searchMovie = () => {
 	titleFilter = true;
 	filterMovies();
@@ -317,24 +305,36 @@ let searchRating = () => {
 }
 let sortMoviesName = () => {
 	drawnMovies.sort((a, b) => {
-		return (a.title > b.title) ? 1 : -1
-	});
-	filterMovies()
-}
-$("#sortByName").click(() => sortMoviesName())
-let sortMoviesGenre = () => {
-	drawnMovies.sort(function (a, b) {
-		return (a.genre > b.genre) ? 1 : -1
+		return (a.title >= b.title) ? 1 : -1
 	});
 	filterMovies();
 }
-$("#sortByGenre").click(() => sortMoviesGenre())
+let sortMoviesGenre = () => {
+	drawnMovies.sort((a, b) => {
+		return (a.genre >= b.genre) ? 1 : -1;
+	});
+	filterMovies();
+}
 let sortMoviesRating = () => {
 	drawnMovies.sort((a, b) => {
-		return (a.rating < b.rating) ? 1 : -1
+		return (a.rating <= b.rating) ? 1 : -1;
 	});
 	filterMovies();
 }
+const url = "https://rough-harvest-liver.glitch.me/movies";
+let moviesArray = [];
+let drawnMovies = [];
+let genreList = [];
+let genreFilter = false;
+let ratingFilter = false;
+let titleFilter = false;
+let selectedGenre = "";
+addHoverStars($("#addRatingLabel1"), $("#addRatingLabel2"), $("#addRatingLabel3"), $("#addRatingLabel4"), $("#addRatingLabel5"));
+addHoverStars($("#editRatingLabel1"), $("#editRatingLabel2"), $("#editRatingLabel3"), $("#editRatingLabel4"), $("#editRatingLabel5"));
+addHoverStars($("#oneStarFilter"), $("#twoStarFilter"), $("#threeStarFilter"), $("#fourStarFilter"), $("#fiveStarFilter"));
+getMovies();
+$("#sortByName").click(() => sortMoviesName());
+$("#sortByGenre").click(() => sortMoviesGenre());
 $("#sortByRating").click(() => sortMoviesRating());
 $("#clearFilters").click(() => {
 	drawnMovies = moviesArray;
