@@ -86,6 +86,33 @@ let getMovies = () => fetch(url)
 		genreList.length = 0;
 		$("#genreList").html("")
 		data.forEach(movie => moviesArray.push(movie));
+		moviesArray.sort(function (a, b) {
+			return (a.title > b.title) ? 1 : -1
+		});
+		$("#movieList").html("");
+		moviesArray.forEach((element) => {
+			let movieButton = document.createElement("button");
+			movieButton.setAttribute("class", "btn btn-link dropdown-item");
+			movieButton.innerText = element.title;
+			$('#movieList').append(movieButton);
+			movieButton.addEventListener('click', () => {
+				$('#editTitle').val(element.title);
+				$('#editDirector').val(element.director);
+				$('#editYear').val(element.year);
+				$('#editGenre').val(element.genre);
+				$('#editActors').val(element.actors);
+				$('#editPlot').val(element.plot);
+				$(`input[value=${element.rating}][name="editRating"]`).attr("checked", true);
+				for (let i = 1; i <= Number(element.rating); i++) {
+					$(`input[name='editRating'][value=${i}]`).parent().addClass("goldStar");
+				}
+				for (let i = 5; i > Number(element.rating); i--) {
+					$(`input[name='editRating'][value=${i}]`).parent().removeClass("goldStar");
+				}
+				$('#editID').val(element.id);
+				$("#editPoster").val(element.poster);
+			});
+		});
 		drawnMovies = moviesArray;
 		filterMovies();
 		data.forEach(movie => {
@@ -96,6 +123,7 @@ let getMovies = () => fetch(url)
 				}
 			});
 		});
+		genreList.sort();
 		genreList.forEach(genre => {
 			let genreButton = document.createElement("button");
 			genreButton.setAttribute("class", "btn btn-link dropdown-item");
@@ -199,30 +227,30 @@ $("#addMovieButton").click(function () {
 		});
 });
 $("#editMovieButton").click(() => {
-	$("#movieList").html("");
-	moviesArray.forEach((element) => {
-		let movieButton = document.createElement("button");
-		movieButton.setAttribute("class", "btn btn-link dropdown-item");
-		movieButton.innerText = element.title;
-		$('#movieList').append(movieButton);
-		movieButton.addEventListener('click', () => {
-			$('#editTitle').val(element.title);
-			$('#editDirector').val(element.director);
-			$('#editYear').val(element.year);
-			$('#editGenre').val(element.genre);
-			$('#editActors').val(element.actors);
-			$('#editPlot').val(element.plot);
-			$(`input[value=${element.rating}][name="editRating"]`).attr("checked", true);
-			for (let i = 1; i <= Number(element.rating); i++) {
-				$(`input[name='editRating'][value=${i}]`).parent().addClass("goldStar");
-			}
-			for (let i = 5; i > Number(element.rating); i--) {
-				$(`input[name='editRating'][value=${i}]`).parent().removeClass("goldStar");
-			}
-			$('#editID').val(element.id);
-			$("#editPoster").val(element.poster);
-		});
-	});
+	// $("#movieList").html("");
+	// moviesArray.forEach((element) => {
+	// 	let movieButton = document.createElement("button");
+	// 	movieButton.setAttribute("class", "btn btn-link dropdown-item");
+	// 	movieButton.innerText = element.title;
+	// 	$('#movieList').append(movieButton);
+	// 	movieButton.addEventListener('click', () => {
+	// 		$('#editTitle').val(element.title);
+	// 		$('#editDirector').val(element.director);
+	// 		$('#editYear').val(element.year);
+	// 		$('#editGenre').val(element.genre);
+	// 		$('#editActors').val(element.actors);
+	// 		$('#editPlot').val(element.plot);
+	// 		$(`input[value=${element.rating}][name="editRating"]`).attr("checked", true);
+	// 		for (let i = 1; i <= Number(element.rating); i++) {
+	// 			$(`input[name='editRating'][value=${i}]`).parent().addClass("goldStar");
+	// 		}
+	// 		for (let i = 5; i > Number(element.rating); i--) {
+	// 			$(`input[name='editRating'][value=${i}]`).parent().removeClass("goldStar");
+	// 		}
+	// 		$('#editID').val(element.id);
+	// 		$("#editPoster").val(element.poster);
+	// 	});
+	// });
 });
 $("#editRatingLabel1").hover(() => {
 	$("#editRatingLabel1").addClass("hoverStars");
