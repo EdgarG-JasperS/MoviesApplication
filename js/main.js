@@ -27,10 +27,12 @@ let drawMovies = moviesList => {
 					<div class="card-body">
 					<h3>${movieObject.title}</h3>
 						<p class="p-0 m-0">${movieObject.year}</p>
-						<p class="p-0 m-0">Plot: ${movieObject.plot}</p>
-						<p class="p-0 m-0">Director: ${movieObject.director}</p>
-						<p class="p-0 m-0">Actors: ${movieObject.actors}</p>
-						<button id="delete${movieObject.id}">Delete This Movie</button>
+						<dl>
+							<dt>Plot</dt><dd>${movieObject.plot}</dd>
+							<dt>Director</dt><dd>${movieObject.director}</dd>
+							<dt>Actors</dt><dd>${movieObject.actors}</dd>
+						</dl>
+						<button id="delete${movieObject.id}" class="movieDelete">Delete This Movie</button>
 					</div>
 				</div>
 			</div>
