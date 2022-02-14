@@ -13,6 +13,17 @@ let drawMovies = moviesList => {
 			ratingString += "&#9733;";
 		}
 		let youtubeSearch = movieObject.title.split(" ").join("+").toLowerCase();
+		youtubeSearch = youtubeSearch.split("%").join("%25");
+		youtubeSearch = youtubeSearch.split("@").join("%40");
+		youtubeSearch = youtubeSearch.split("#").join("%23");
+		youtubeSearch = youtubeSearch.split("$").join("%24");
+		youtubeSearch = youtubeSearch.split("^").join("%5E");
+		youtubeSearch = youtubeSearch.split("&").join("%26");
+		youtubeSearch = youtubeSearch.split("=").join("%3D");
+		youtubeSearch = youtubeSearch.split("+").join("%2B");
+		youtubeSearch = youtubeSearch.split(":").join("%3A");
+		youtubeSearch = youtubeSearch.split(",").join("%2C");
+		youtubeSearch = youtubeSearch.split("?").join("%3F");
 		$(".movie-collection").append(`
 			<div id="movie${movieObject.id}" class="card mx-3 my-3">
 				<div class="card-header bg-dark">
@@ -37,7 +48,7 @@ let drawMovies = moviesList => {
 							<br>
 							<dt>Actors</dt><dd>${movieObject.actors}</dd>
 						</dl>
-						<div class="text-center"><button id="delete${movieObject.id}" class="movieDelete">Delete Movie</button></div>
+						<div class="text-center"><button id="delete${movieObject.id}" class="btn movieDelete">Delete Movie</button></div>
 					</div>
 				</div>
 			</div>
