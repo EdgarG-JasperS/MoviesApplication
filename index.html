@@ -63,28 +63,39 @@
 					<button type="button" class="btn-close-white btn-close" data-bs-dismiss="modal"></button>
 				</div>
 				<div id="addMovieModalForm" class="modal-body">
-					<label><input type="text" id="addMovieSearch" name="addMovieSearch" placeholder="Search Movie">
+					<label class="m-2">
+						<input size="50" type="text" id="addMovieSearch" name="addMovieSearch" placeholder="Search Movie">
 					</label>
 					<button class="btn btn-secondary" type="button" id="addMovieSearchButton">Search</button>
 					<hr>
-					<label class="py-1"><input type="text" id="addTitle" name="addTitle" placeholder="Title"></label>
+					<label class="py-1"><input size="50" type="text" id="addTitle" name="addTitle" placeholder="Title">
+					</label>
 					<br>
-					<label class="py-1"><input type="text" id="addDirector" name="addDirector" placeholder="Director"></label>
+					<label class="py-1">
+						<input size="50" type="text" id="addDirector" name="addDirector" placeholder="Director"></label>
 					<br>
-					<label class="py-1"><input type="text" id="addYear" name="addYear" placeholder="Year"></label>
+					<label class="py-1"><input size="50" type="text" id="addYear" name="addYear" placeholder="Year">
+					</label>
 					<br>
-					<label class="py-1"><input type="text" id="addGenre" name="addGenre" placeholder="Genre"></label>
+					<label class="py-1"><input size="50" type="text" id="addGenre" name="addGenre" placeholder="Genre">
+					</label>
 					<br>
-					<label class="py-1"><input type="text" id="addActors" name="addActors" placeholder="Actor"></label>
+					<label class="py-1">
+						<input size="50" type="text" id="addActors" name="addActors" placeholder="Actor"></label>
 					<br>
-					<label class="py-1"><input type="text" id="addPlot" name="addPlot" placeholder="Plot"></label>
+					<textarea id="addPlot" name="addPlot" placeholder="Plot"></textarea>
 					<br>
 					<div class="modal-stars">
-						<label id="addRatingLabel1"><input hidden type="radio" name="addRating" value="1">&#9733;</label>
-						<label id="addRatingLabel2"><input hidden type="radio" name="addRating" value="2">&#9733;</label>
-						<label id="addRatingLabel3"><input hidden type="radio" name="addRating" value="3">&#9733;</label>
-						<label id="addRatingLabel4"><input hidden type="radio" name="addRating" value="4">&#9733;</label>
-						<label id="addRatingLabel5"><input hidden type="radio" name="addRating" value="5">&#9733;</label>
+						<label id="addRatingLabel1"><input hidden type="radio" name="addRating" value="1">&#9733;
+						</label>
+						<label id="addRatingLabel2"><input hidden type="radio" name="addRating" value="2">&#9733;
+						</label>
+						<label id="addRatingLabel3"><input hidden type="radio" name="addRating" value="3">&#9733;
+						</label>
+						<label id="addRatingLabel4"><input hidden type="radio" name="addRating" value="4">&#9733;
+						</label>
+						<label id="addRatingLabel5"><input hidden type="radio" name="addRating" value="5">&#9733;
+						</label>
 					</div>
 					<label class="invisible"><input type="text" name="poster" id="poster"></label>
 				</div>
@@ -111,24 +122,34 @@
 						</button>
 						<ul id="movieList" class="dropdown-menu"></ul>
 					</div>
-					<label class="py-1"><input type="text" id="editTitle" name="title" placeholder="Title"></label>
+					<label class="py-1"><input size="50" type="text" id="editTitle" name="title" placeholder="Title">
+					</label>
 					<br>
-					<label class="py-1"><input type="text" id="editDirector" name="director" placeholder="Director"></label>
+					<label class="py-1">
+						<input size="50" type="text" id="editDirector" name="director" placeholder="Director"></label>
 					<br>
-					<label class="py-1"><input type="text" id="editYear" name="year" placeholder="Year"></label>
+					<label class="py-1"><input size="50" type="text" id="editYear" name="year" placeholder="Year">
+					</label>
 					<br>
-					<label class="py-1"><input type="text" id="editGenre" name="genre" placeholder="Genre"></label>
+					<label class="py-1"><input size="50" type="text" id="editGenre" name="genre" placeholder="Genre">
+					</label>
 					<br>
-					<label class="py-1"><input type="text" id="editActors" name="actor" placeholder="Actor"></label>
+					<label class="py-1"><input size="50" type="text" id="editActors" name="actor" placeholder="Actor">
+					</label>
 					<br>
-					<label class="py-1"><input type="text" id="editPlot" name="plot" placeholder="Plot"></label>
+					<textarea id="editPlot" name="plot" placeholder="Plot"></textarea>
 					<br>
 					<div class="modal-stars">
-						<label id="editRatingLabel1"><input hidden type="radio" name="editRating" value="1">&#9733;</label>
-						<label id="editRatingLabel2"><input hidden type="radio" name="editRating" value="2">&#9733;</label>
-						<label id="editRatingLabel3"><input hidden type="radio" name="editRating" value="3">&#9733;</label>
-						<label id="editRatingLabel4"><input hidden type="radio" name="editRating" value="4">&#9733;</label>
-						<label id="editRatingLabel5"><input hidden type="radio" name="editRating" value="5">&#9733;</label>
+						<label id="editRatingLabel1"><input hidden type="radio" name="editRating" value="1">&#9733;
+						</label>
+						<label id="editRatingLabel2"><input hidden type="radio" name="editRating" value="2">&#9733;
+						</label>
+						<label id="editRatingLabel3"><input hidden type="radio" name="editRating" value="3">&#9733;
+						</label>
+						<label id="editRatingLabel4"><input hidden type="radio" name="editRating" value="4">&#9733;
+						</label>
+						<label id="editRatingLabel5"><input hidden type="radio" name="editRating" value="5">&#9733;
+						</label>
 					</div>
 					<label><input type="text" id="editID" name="id" class="invisible"></label>
 					<label class="invisible"><input type="text" id="editPoster" name="editPoster"></label>

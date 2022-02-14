@@ -26,13 +26,16 @@ let drawMovies = moviesList => {
 				<div id="card${movieObject.id}" class="collapse">
 					<div class="card-body">
 					<h3>${movieObject.title}</h3>
-						<p class="p-0 m-0">${movieObject.year}</p>
+						<h6>${movieObject.year}</h6>
+							<hr>
 						<dl>
 							<dt>Plot</dt><dd>${movieObject.plot}</dd>
+							<br>
 							<dt>Director</dt><dd>${movieObject.director}</dd>
+							<br>
 							<dt>Actors</dt><dd>${movieObject.actors}</dd>
 						</dl>
-						<button id="delete${movieObject.id}" class="movieDelete">Delete This Movie</button>
+						<div class="text-center"><button id="delete${movieObject.id}" class="movieDelete">Delete Movie</button></div>
 					</div>
 				</div>
 			</div>
@@ -227,32 +230,6 @@ $("#addMovieButton").click(function () {
 			console.log(error);
 			$("#addMovieButton").attr("disabled", false);
 		});
-});
-$("#editMovieButton").click(() => {
-	// $("#movieList").html("");
-	// moviesArray.forEach((element) => {
-	// 	let movieButton = document.createElement("button");
-	// 	movieButton.setAttribute("class", "btn btn-link dropdown-item");
-	// 	movieButton.innerText = element.title;
-	// 	$('#movieList').append(movieButton);
-	// 	movieButton.addEventListener('click', () => {
-	// 		$('#editTitle').val(element.title);
-	// 		$('#editDirector').val(element.director);
-	// 		$('#editYear').val(element.year);
-	// 		$('#editGenre').val(element.genre);
-	// 		$('#editActors').val(element.actors);
-	// 		$('#editPlot').val(element.plot);
-	// 		$(`input[value=${element.rating}][name="editRating"]`).attr("checked", true);
-	// 		for (let i = 1; i <= Number(element.rating); i++) {
-	// 			$(`input[name='editRating'][value=${i}]`).parent().addClass("goldStar");
-	// 		}
-	// 		for (let i = 5; i > Number(element.rating); i--) {
-	// 			$(`input[name='editRating'][value=${i}]`).parent().removeClass("goldStar");
-	// 		}
-	// 		$('#editID').val(element.id);
-	// 		$("#editPoster").val(element.poster);
-	// 	});
-	// });
 });
 $("#editRatingLabel1").hover(() => {
 	$("#editRatingLabel1").addClass("hoverStars");
