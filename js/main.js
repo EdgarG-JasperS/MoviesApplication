@@ -145,51 +145,56 @@ let getMovies = () => fetch(url)
 		$("#loading").attr('style', 'display: none');
 	})
 	.catch(err => console.log(err));
-$("#addRatingLabel1").hover(() => {
-	$("#addRatingLabel1").addClass("hoverStars");
-}, () => {
-	$("#addRatingLabel1").removeClass("hoverStars");
-});
-$("#addRatingLabel2").hover(() => {
-	$("#addRatingLabel1").addClass("hoverStars");
-	$("#addRatingLabel2").addClass("hoverStars");
-}, () => {
-	$("#addRatingLabel1").removeClass("hoverStars");
-	$("#addRatingLabel2").removeClass("hoverStars");
-});
-$("#addRatingLabel3").hover(() => {
-	$("#addRatingLabel1").addClass("hoverStars");
-	$("#addRatingLabel2").addClass("hoverStars");
-	$("#addRatingLabel3").addClass("hoverStars");
-}, () => {
-	$("#addRatingLabel1").removeClass("hoverStars");
-	$("#addRatingLabel2").removeClass("hoverStars");
-	$("#addRatingLabel3").removeClass("hoverStars");
-});
-$("#addRatingLabel4").hover(() => {
-	$("#addRatingLabel1").addClass("hoverStars");
-	$("#addRatingLabel2").addClass("hoverStars");
-	$("#addRatingLabel3").addClass("hoverStars");
-	$("#addRatingLabel4").addClass("hoverStars");
-}, () => {
-	$("#addRatingLabel1").removeClass("hoverStars");
-	$("#addRatingLabel2").removeClass("hoverStars");
-	$("#addRatingLabel3").removeClass("hoverStars");
-	$("#addRatingLabel4").removeClass("hoverStars");
-});
-$("#addRatingLabel5").hover(() => {
-	$("#addRatingLabel1").addClass("hoverStars");
-	$("#addRatingLabel2").addClass("hoverStars");
-	$("#addRatingLabel3").addClass("hoverStars");
-	$("#addRatingLabel4").addClass("hoverStars");
-	$("#addRatingLabel5").addClass("hoverStars");
-}, () => {
-	$("#addRatingLabel1").removeClass("hoverStars");
-	$("#addRatingLabel2").removeClass("hoverStars");
-	$("#addRatingLabel3").removeClass("hoverStars");
-	$("#addRatingLabel4").removeClass("hoverStars");
-	$("#addRatingLabel5").removeClass("hoverStars");
-});
+let addHoverStars = (star1, star2, star3, star4, star5) => {
+	star1.hover(() => {
+		star1.addClass("hoverStars");
+	}, () => {
+		star1.removeClass("hoverStars");
+	});
+	star2.hover(() => {
+		star1.addClass("hoverStars");
+		star2.addClass("hoverStars");
+	}, () => {
+		star1.removeClass("hoverStars");
+		star2.removeClass("hoverStars");
+	});
+	star3.hover(() => {
+		star1.addClass("hoverStars");
+		star2.addClass("hoverStars");
+		star3.addClass("hoverStars");
+	}, () => {
+		star1.removeClass("hoverStars");
+		star2.removeClass("hoverStars");
+		star3.removeClass("hoverStars");
+	});
+	star4.hover(() => {
+		star1.addClass("hoverStars");
+		star2.addClass("hoverStars");
+		star3.addClass("hoverStars");
+		star4.addClass("hoverStars");
+	}, () => {
+		star1.removeClass("hoverStars");
+		star2.removeClass("hoverStars");
+		star3.removeClass("hoverStars");
+		star4.removeClass("hoverStars");
+	});
+	star5.hover(() => {
+		star1.addClass("hoverStars");
+		star2.addClass("hoverStars");
+		star3.addClass("hoverStars");
+		star4.addClass("hoverStars");
+		star5.addClass("hoverStars");
+	}, () => {
+		star1.removeClass("hoverStars");
+		star2.removeClass("hoverStars");
+		star3.removeClass("hoverStars");
+		star4.removeClass("hoverStars");
+		star5.removeClass("hoverStars");
+	});
+}
+addHoverStars($("#addRatingLabel1"), $("#addRatingLabel2"), $("#addRatingLabel3"), $("#addRatingLabel4"), $("#addRatingLabel5"));
+addHoverStars($("#editRatingLabel1"), $("#editRatingLabel2"), $("#editRatingLabel3"), $("#editRatingLabel4"), $("#editRatingLabel5"));
+addHoverStars($("#oneStarFilter"), $("#twoStarFilter"), $("#threeStarFilter"), $("#fourStarFilter"), $("#fiveStarFilter"));
 $("input[name='addRating']").click(() => {
 	let selectedRating = $("input[name='addRating']:checked").val();
 	for (let i = 1; i <= Number(selectedRating); i++) {
@@ -232,51 +237,6 @@ $("#addMovieButton").click(function () {
 			console.log(error);
 			$("#addMovieButton").attr("disabled", false);
 		});
-});
-$("#editRatingLabel1").hover(() => {
-	$("#editRatingLabel1").addClass("hoverStars");
-}, () => {
-	$("#editRatingLabel1").removeClass("hoverStars");
-});
-$("#editRatingLabel2").hover(() => {
-	$("#editRatingLabel1").addClass("hoverStars");
-	$("#editRatingLabel2").addClass("hoverStars");
-}, () => {
-	$("#editRatingLabel1").removeClass("hoverStars");
-	$("#editRatingLabel2").removeClass("hoverStars");
-});
-$("#editRatingLabel3").hover(() => {
-	$("#editRatingLabel1").addClass("hoverStars");
-	$("#editRatingLabel2").addClass("hoverStars");
-	$("#editRatingLabel3").addClass("hoverStars");
-}, () => {
-	$("#editRatingLabel1").removeClass("hoverStars");
-	$("#editRatingLabel2").removeClass("hoverStars");
-	$("#editRatingLabel3").removeClass("hoverStars");
-});
-$("#editRatingLabel4").hover(() => {
-	$("#editRatingLabel1").addClass("hoverStars");
-	$("#editRatingLabel2").addClass("hoverStars");
-	$("#editRatingLabel3").addClass("hoverStars");
-	$("#editRatingLabel4").addClass("hoverStars");
-}, () => {
-	$("#editRatingLabel1").removeClass("hoverStars");
-	$("#editRatingLabel2").removeClass("hoverStars");
-	$("#editRatingLabel3").removeClass("hoverStars");
-	$("#editRatingLabel4").removeClass("hoverStars");
-});
-$("#editRatingLabel5").hover(() => {
-	$("#editRatingLabel1").addClass("hoverStars");
-	$("#editRatingLabel2").addClass("hoverStars");
-	$("#editRatingLabel3").addClass("hoverStars");
-	$("#editRatingLabel4").addClass("hoverStars");
-	$("#editRatingLabel5").addClass("hoverStars");
-}, () => {
-	$("#editRatingLabel1").removeClass("hoverStars");
-	$("#editRatingLabel2").removeClass("hoverStars");
-	$("#editRatingLabel3").removeClass("hoverStars");
-	$("#editRatingLabel4").removeClass("hoverStars");
-	$("#editRatingLabel5").removeClass("hoverStars");
 });
 $("input[name='editRating']").click(() => {
 	let selectedRating = $("input[name='editRating']:checked").val();
@@ -333,51 +293,6 @@ let searchMovie = () => {
 	titleFilter = true;
 	filterMovies();
 }
-$("#oneStarFilter").hover(() => {
-	$("#oneStarFilter").addClass("hoverStars");
-}, () => {
-	$("#oneStarFilter").removeClass("hoverStars");
-});
-$("#twoStarFilter").hover(() => {
-	$("#oneStarFilter").addClass("hoverStars");
-	$("#twoStarFilter").addClass("hoverStars");
-}, () => {
-	$("#oneStarFilter").removeClass("hoverStars");
-	$("#twoStarFilter").removeClass("hoverStars");
-});
-$("#threeStarFilter").hover(() => {
-	$("#oneStarFilter").addClass("hoverStars");
-	$("#twoStarFilter").addClass("hoverStars");
-	$("#threeStarFilter").addClass("hoverStars");
-}, () => {
-	$("#oneStarFilter").removeClass("hoverStars");
-	$("#twoStarFilter").removeClass("hoverStars");
-	$("#threeStarFilter").removeClass("hoverStars");
-});
-$("#fourStarFilter").hover(() => {
-	$("#oneStarFilter").addClass("hoverStars");
-	$("#twoStarFilter").addClass("hoverStars");
-	$("#threeStarFilter").addClass("hoverStars");
-	$("#fourStarFilter").addClass("hoverStars");
-}, () => {
-	$("#oneStarFilter").removeClass("hoverStars");
-	$("#twoStarFilter").removeClass("hoverStars");
-	$("#threeStarFilter").removeClass("hoverStars");
-	$("#fourStarFilter").removeClass("hoverStars");
-});
-$("#fiveStarFilter").hover(() => {
-	$("#oneStarFilter").addClass("hoverStars");
-	$("#twoStarFilter").addClass("hoverStars");
-	$("#threeStarFilter").addClass("hoverStars");
-	$("#fourStarFilter").addClass("hoverStars");
-	$("#fiveStarFilter").addClass("hoverStars");
-}, () => {
-	$("#oneStarFilter").removeClass("hoverStars");
-	$("#twoStarFilter").removeClass("hoverStars");
-	$("#threeStarFilter").removeClass("hoverStars");
-	$("#fourStarFilter").removeClass("hoverStars");
-	$("#fiveStarFilter").removeClass("hoverStars");
-});
 let searchRating = () => {
 	ratingFilter = true;
 	let selectedRating = $("input[name='sortRating']:checked").val();
