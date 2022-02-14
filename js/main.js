@@ -12,6 +12,7 @@ let drawMovies = moviesList => {
 		for (let i = 0; i < 5 - rating; i++) {
 			ratingString += "&#9733;";
 		}
+		let youtubeSearch = movieObject.title.split(" ").join("+").toLowerCase();
 		$(".movie-collection").append(`
 			<div id="movie${movieObject.id}" class="card mx-3 my-3">
 				<div class="card-header bg-dark">
@@ -27,6 +28,7 @@ let drawMovies = moviesList => {
 					<div class="card-body">
 					<h3>${movieObject.title}</h3>
 						<h6>${movieObject.year}</h6>
+						<a href="https://www.youtube.com/results?search_query=${youtubeSearch}+${movieObject.year}+trailer" target="_blank">Watch Trailer</a>
 							<hr>
 						<dl>
 							<dt>Plot</dt><dd>${movieObject.plot}</dd>
